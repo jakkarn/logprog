@@ -1,5 +1,11 @@
-path(N1, N2) :- path(N1, N2).
-path(N1, N2) :- path(N1, _, N2).
+path(a,b).
+path(b,c).
 
-path(N1, P, N2) :- path(N1, N2).
-path(N1, p(N1, N2), N2) :- path(N1, )
+
+path(X, X, []).
+
+% jonas: don't need this line
+path(N1, N2, [N1, N2]) :- path(N1, N2).
+
+path(N1, N2, [X|P2]) :- path(N1, X), path(X, N2, P2).
+%              ^return
