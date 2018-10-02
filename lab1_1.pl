@@ -37,7 +37,6 @@ happy(X) :- male(X), female(X), likes(X, Y), likes(Y, X).
 /* 9. all women who like a man who likes her are happy */
 happy(X) :- female(X), male(Y), likes(X, Y), likes(Y, X).
 
-
 /* 6. all men likes beautiful women */
 likes(X, Y) :- male(X), female(Y), beautiful(Y).
 
