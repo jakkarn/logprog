@@ -1,9 +1,9 @@
 /*
-    deductive database in definite clause form
+    1.1 deductive database in definite clause form
 */
 
-/* female facts */ 
-female(ulrika). 
+/* female facts */
+female(ulrika).
 female(anne).
 
 /* male facts */
@@ -56,3 +56,5 @@ likes(ulrika, X) :- male(X), beautiful(X), strong(X), likes(X, ulrika). % b
 
 /* how to query length result of a findall query: */
 % findall(X, likes(X,Y), L), length(L, NUM).
+
+//TODO: explain your choice
