@@ -52,9 +52,9 @@ likes(peter, X) :- kind(X).
 likes(ulrika, X) :- male(X), rich(X), kind(X), likes(X, ulrika).        % a
 likes(ulrika, X) :- male(X), beautiful(X), strong(X), likes(X, ulrika). % b
 
-/* how to query length result of a findall query: */
-% findall(X, likes(X,Y), L), length(L, NUM).
-
+/* OUTPUT */
 :- write("QUERY> likes(X,Y)."), nl.
-:- forall(likes(X, Y), (write("-: "), write(X), write(" likes "), write(Y), nl)).
-:- nl, halt(0).
+:- forall(likes(X,Y), (write("-: "), write(X), write(" likes "), write(Y), nl)).
+:- nl, write("QUERY> happy(X,Y)."), nl.
+:- forall(happy(X), (write("-: "), write(X), nl)).
+:- nl, halt(0). % halt swipl

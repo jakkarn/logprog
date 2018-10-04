@@ -1,0 +1,89 @@
+QUERY> path(X,Y). (is there a path?)
+a -> ... b
+a -> ... c
+b -> ... c
+c -> ... d
+c -> ... e
+d -> ... f
+d -> ... h
+e -> ... f
+e -> ... g
+f -> ... g
+a -> ... c
+a -> ... d
+a -> ... e
+a -> ... f
+a -> ... h
+a -> ... g
+a -> ... f
+a -> ... g
+a -> ... g
+a -> ... d
+a -> ... e
+a -> ... f
+a -> ... h
+a -> ... g
+a -> ... f
+a -> ... g
+a -> ... g
+b -> ... d
+b -> ... e
+b -> ... f
+b -> ... h
+b -> ... g
+b -> ... f
+b -> ... g
+b -> ... g
+c -> ... f
+c -> ... h
+c -> ... g
+c -> ... f
+c -> ... g
+c -> ... g
+d -> ... g
+e -> ... g
+
+QUERY> path(X,Y,P). (what are the paths?)
+a -> b
+a -> c
+b -> c
+c -> d
+c -> e
+d -> f
+d -> h
+e -> f
+e -> g
+f -> g
+a -> b -> c
+a -> b -> c -> d
+a -> b -> c -> e
+a -> b -> c -> d -> f
+a -> b -> c -> d -> h
+a -> b -> c -> d -> f -> g
+a -> b -> c -> e -> f
+a -> b -> c -> e -> g
+a -> b -> c -> e -> f -> g
+a -> c -> d
+a -> c -> e
+a -> c -> d -> f
+a -> c -> d -> h
+a -> c -> d -> f -> g
+a -> c -> e -> f
+a -> c -> e -> g
+a -> c -> e -> f -> g
+b -> c -> d
+b -> c -> e
+b -> c -> d -> f
+b -> c -> d -> h
+b -> c -> d -> f -> g
+b -> c -> e -> f
+b -> c -> e -> g
+b -> c -> e -> f -> g
+c -> d -> f
+c -> d -> h
+c -> d -> f -> g
+c -> e -> f
+c -> e -> g
+c -> e -> f -> g
+d -> f -> g
+e -> f -> g
