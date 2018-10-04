@@ -1,0 +1,7 @@
+QUERY> likes(X,Y).
+-: nisse likes ulrika
+-: peter likes ulrika
+-: bosse likes ulrika
+-: peter likes bosse
+-: ulrika likes peter
+

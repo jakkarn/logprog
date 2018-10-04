@@ -1,0 +1,8 @@
+OUTPUT TO FILE FROM CMD-LINE
+swipl -f asd.pl < input.txt > output.txt
+
+EXIT
+halt.
+
+OUTPUT TO CONSOLE - SIMPLE QUERY
+:- forall(premise(X), (write(X), nl)).

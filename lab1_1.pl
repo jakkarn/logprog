@@ -54,3 +54,7 @@ likes(ulrika, X) :- male(X), beautiful(X), strong(X), likes(X, ulrika). % b
 
 /* how to query length result of a findall query: */
 % findall(X, likes(X,Y), L), length(L, NUM).
+
+:- write("QUERY> likes(X,Y)."), nl.
+:- forall(likes(X, Y), (write("-: "), write(X), write(" likes "), write(Y), nl)).
+:- nl, halt(0).
