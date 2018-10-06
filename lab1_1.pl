@@ -53,8 +53,10 @@ likes(ulrika, X) :- male(X), rich(X), kind(X), likes(X, ulrika).        % a
 likes(ulrika, X) :- male(X), beautiful(X), strong(X), likes(X, ulrika). % b
 
 /* OUTPUT */
-:- write("QUERY> likes(X,Y)."), nl.
+:- write("QUERY> happy(X). (Who is happy?)"), nl.
+:- forall(happy(X), (write("-: "), write(X), write(" is happy"), nl)).
+:- nl, write("QUERY> likes(X,Y). (Who likes whom?)"), nl.
 :- forall(likes(X,Y), (write("-: "), write(X), write(" likes "), write(Y), nl)).
-:- nl, write("QUERY> happy(X,Y)."), nl.
-:- forall(happy(X), (write("-: "), write(X), nl)).
+:- nl, write("QUERY> likes(X,ulrika). (How many people like ulrika?)"), nl.
+:- forall(likes(X, ulrika), (write("-: "), write(X), write(" likes ulrika"), nl)).
 :- nl, halt(0). % halt swipl

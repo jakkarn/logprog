@@ -6,3 +6,6 @@ halt.
 
 OUTPUT TO CONSOLE - SIMPLE QUERY
 :- forall(premise(X), (write(X), nl)).
+
+SICSTUS                     SWIPL
+domain(List, x, y)          List ins x..y

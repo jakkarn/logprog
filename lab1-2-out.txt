@@ -87,3 +87,48 @@ c -> e -> g
 c -> e -> f -> g
 d -> f -> g
 e -> f -> g
+
+QUERY> npath(X,Y). (length of path?)
+a -> ... b has path w. len. 0
+a -> ... c has path w. len. 0
+b -> ... c has path w. len. 0
+c -> ... d has path w. len. 0
+c -> ... e has path w. len. 0
+d -> ... f has path w. len. 0
+d -> ... h has path w. len. 0
+e -> ... f has path w. len. 0
+e -> ... g has path w. len. 0
+f -> ... g has path w. len. 0
+a -> ... c has path w. len. 1
+a -> ... d has path w. len. 2
+a -> ... e has path w. len. 2
+a -> ... f has path w. len. 3
+a -> ... h has path w. len. 3
+a -> ... g has path w. len. 4
+a -> ... f has path w. len. 3
+a -> ... g has path w. len. 3
+a -> ... g has path w. len. 4
+a -> ... d has path w. len. 1
+a -> ... e has path w. len. 1
+a -> ... f has path w. len. 2
+a -> ... h has path w. len. 2
+a -> ... g has path w. len. 3
+a -> ... f has path w. len. 2
+a -> ... g has path w. len. 2
+a -> ... g has path w. len. 3
+b -> ... d has path w. len. 1
+b -> ... e has path w. len. 1
+b -> ... f has path w. len. 2
+b -> ... h has path w. len. 2
+b -> ... g has path w. len. 3
+b -> ... f has path w. len. 2
+b -> ... g has path w. len. 2
+b -> ... g has path w. len. 3
+c -> ... f has path w. len. 1
+c -> ... h has path w. len. 1
+c -> ... g has path w. len. 2
+c -> ... f has path w. len. 1
+c -> ... g has path w. len. 1
+c -> ... g has path w. len. 2
+d -> ... g has path w. len. 1
+e -> ... g has path w. len. 1

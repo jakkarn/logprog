@@ -23,6 +23,10 @@ if there is an edge between N1 and some other element X and there is a path
 P2 from X to N2, then there is a path P from N1 and N2 */
 path(N1, N2, [X|P2]) :- edge(N1, X), path(X, N2, P2).
 
+/* npath(N1, N2, LEN)
+if there is a path between N1 and N2 then LEN is the length of that path */
+npath(N1, N2, LEN) :- path(N1, N2, P), length(P, LEN).
+
 /* OUTPUT */
 
 printpath([]).
@@ -36,5 +40,9 @@ printpath([X|T]) :- write(X), write(" -> "), printpath(T).
     (       write(X), write(" -> "),
             printpath(P),
             write(Y), nl)).
+
+:- nl, write("QUERY> npath(X,Y). (length of path?)"),
+    nl, forall(npath(X,Y,N), (write(X), write(" -> ... "), write(Y),
+    write(" has path w. len. "), write(N), nl)).
 
 :- halt(0).
