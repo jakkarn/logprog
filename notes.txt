@@ -11,6 +11,10 @@ SICSTUS                     SWIPL
 domain(List, x, y)          List ins x..y
 
 COMPARISON
+:- use_module(library(clpfd)). %include for comparison and clpfd
 X<Y     %arithmetic comparison
-X@<Y    %term comparison
+X@<Y    %term comparison "=<" and ">="
 X#<Y    %constraint
+
+IFELSE
+?- issorted([]) -> write(true) ; write(false), nl.
