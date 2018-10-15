@@ -28,21 +28,18 @@ if there is a path between N1 and N2 then LEN is the length of that path */
 npath(N1, N2, LEN) :- path(N1, N2, P), length(P, LEN).
 
 /* OUTPUT */
+printpath([]) :- format(" -> ", []).
+printpath([X]) :- format(" -> ", []), write(X), format(" -> ", []).
+printpath([X|T]) :- format(" -> ", []), write(X), printpath(T).
 
-printpath([]).
-printpath([X|T]) :- write(X), write(" -> "), printpath(T).
+:- tell('./lab1-2-out.txt').
+% :- findall(P, path(X,Y,P), L), (foreach(E, L) do printpath(E), nl).
+:- findall((X,Y,P), path(X,Y,P), L),
+	(foreach((X1,Y1,P1), L) do write(X1), printpath(P1), write(Y1), nl).
+:- told.
 
-:- write("QUERY> path(X,Y). (is there a path?)"),
-    nl, forall(path(X,Y), (write(X), write(" -> ... "), write(Y), nl)).
+% :- (foreach(X, [1,2,3]) do write(X), nl).
+% :- findall(P, path(X,Y,P), L).
+% :- format(" print this as string ", []).
 
-:- nl, write("QUERY> path(X,Y,P). (what are the paths?)"),
-    nl, forall( path(X,Y,P),
-    (       write(X), write(" -> "),
-            printpath(P),
-            write(Y), nl)).
-
-:- nl, write("QUERY> npath(X,Y). (length of path?)"),
-    nl, forall(npath(X,Y,N), (write(X), write(" -> ... "), write(Y),
-    write(" has path w. len. "), write(N), nl)).
-
-:- halt(0).
+% :- halt(0).

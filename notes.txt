@@ -18,3 +18,12 @@ X#<Y    %constraint
 
 IFELSE
 ?- issorted([]) -> write(true) ; write(false), nl.
+
+THE CUT ! (no backtrack beyond the "!" point)
+once(X) :- X,!.
+
+
+green cuts:
+    does not prune non-redundant answers
+or: does not not keep non-not-useful answers
+or: keeps all useful answers
