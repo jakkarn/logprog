@@ -9,3 +9,8 @@ peter likes ulrika
 bosse likes ulrika
 peter likes bosse
 ulrika likes peter
+
+QUERY (who likes ulrika?) 'likes(X, ultika)':
+nisse likes Ulrika
+peter likes Ulrika
+bosse likes Ulrika
