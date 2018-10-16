@@ -52,7 +52,14 @@ likes(peter, X) :- kind(X).
 likes(ulrika, X) :- male(X), rich(X), kind(X), likes(X, ulrika).        % a
 likes(ulrika, X) :- male(X), beautiful(X), strong(X), likes(X, ulrika). % b
 
-:- write(hej).
+:- tell('./lab-1-1-out.txt').
+:- format("QUERY (who is happy?) 'happy(X)':", []), nl.
+:- findall(X, happy(X), L),
+	(foreach(E, L) do format("~a is happy", [E]), nl).
+:- nl, format("QUERY (who likes whom?) 'likes(X, Y)':", []), nl.
+:- findall((X,Y), likes(X,Y), L),
+	(foreach((X,Y), L) do format("~a likes ~a", [X, Y]), nl).
+:- told.
 
 /* OUTPUT */
 % :- write("QUERY> happy(X). (Who is happy?)"), nl.
