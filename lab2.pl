@@ -1,6 +1,7 @@
 /*
     lab 2.1 - sorting
 */
+:- use_module(library(random)).
 
 /* if L is a list of numbers, then L is sorted */
 issorted([_]).
@@ -25,7 +26,7 @@ selsort(Mixed, [Smallest|Sorted]) :-
     smallest(Mixed, Smallest, Rest),
     selsort(Rest, Sorted).
 
-/* quicksort */
+/* Partition for quicksort */
 partition([], _Pivot, [], []).
 
 partition([H|T], Pivot, Left, Right) :-
@@ -36,11 +37,18 @@ partition([H|T], Pivot, Left, Right) :-
         append([H], SubRight, Right),
         partition(T, Pivot, Left, SubRight).
 
+/* Quicksort */
 quicksort([], []).
+quicksort([X], [X]).
 
 quicksort(Mixed, Sorted) :-
-    random_member(Pivot, Mixed),
-    partition(Mixed, Pivot, Left, Right),
+    random_select(Pivot, Mixed, MixedRest),
+    partition(MixedRest, Pivot, Left, Right),
     quicksort(Left, SortedLeft),
     quicksort(Right, SortedRight),
-    append(SortedLeft, SortedRight, Sorted).
+    append(SortedLeft, [Pivot|SortedRight], Sorted).
+
+:- append([1,6,1,7,3,7,5,72,8,3], [], L),
+	nl,selsort(L, SelSorted), write(SelSorted),
+	nl,quicksort(L, QuickSorted), write(QuickSorted).
+	

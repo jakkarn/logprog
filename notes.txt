@@ -10,6 +10,10 @@ OUTPUT TO CONSOLE - SIMPLE QUERY
 SICSTUS                     SWIPL
 domain(List, x, y)          List ins x..y
 
+EMACS
+C-c C-c     % interrupt
+a           % abort in interruptions prompt
+
 COMPARISON
 :- use_module(library(clpfd)). %include for comparison and clpfd
 X<Y     %arithmetic comparison
