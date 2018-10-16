@@ -1,16 +1,11 @@
-QUERY> happy(X). (Who is happy?)
--: nisse is happy
--: anne is happy
--: ulrika is happy
+QUERY (who is happy?) 'happy(X)':
+nisse is happy
+anne is happy
+ulrika is happy
 
-QUERY> likes(X,Y). (Who likes whom?)
--: nisse likes ulrika
--: peter likes ulrika
--: bosse likes ulrika
--: peter likes bosse
--: ulrika likes peter
-
-QUERY> likes(X,ulrika). (How many people like ulrika?)
--: nisse likes ulrika
--: peter likes ulrika
--: bosse likes ulrika
+QUERY (who likes whom?) 'likes(X, Y)':
+nisse likes ulrika
+peter likes ulrika
+bosse likes ulrika
+peter likes bosse
+ulrika likes peter
