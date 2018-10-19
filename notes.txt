@@ -41,3 +41,5 @@ or: keeps all useful answers
 % :- nl, write("QUERY> likes(X,ulrika). (How many people like ulrika?)"), nl.
 % :- forall(likes(X, ulrika), (write("-: "), write(X), write(" likes ulrika"), nl)).
 % :- nl, halt(0). % halt swipl
+% :- format("~a", [X]) doesn't work if X is a number
+% :- format("~d", [X]) works if X is a digit

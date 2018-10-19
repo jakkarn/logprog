@@ -1,26 +1,29 @@
 /*  middle (X, Xs) */
 /* X is the middle element in the list Xs */
-% middle(X, [X]).
-% middle(X, [First|Xs]) :-
-% 	middle(X, Middle),
-% 	append(Middle, [Last], Xs).
-
-/* this order loops indefinitely */
-% middle(X, [X]).
-% middle(X, [First|Xs]) :-
-% 	middle(X, Middle),
-% 	append(Middle, [Last], Xs).
-
-/*  */
-middle(X, [First|Xs]) :-
+middle0(X, [X]).
+middle0(X, [First|Xs]) :-
 	append(Middle, [Last], Xs),
 	middle(X, Middle).
-middle(X, [X]).
 
-/*  */
-% middle(X, [First|Xs]) :-
-% 	middle(X, Middle),
-% 	append(Middle, [Last], Xs).
-% middle(X, [X]).
+/* loops indefinitely */
+middle1(X, [X]).
+middle1(X, [First|Xs]) :-
+	middle(X, Middle),
+	append(Middle, [Last], Xs).
 
-:- nl, middle(X, [5,9,6,404,7,2,3]), format("middle element: ~a", [X]).
+/* works */
+middle2(X, [First|Xs]) :-
+	append(Middle, [Last], Xs),
+	middle(X, Middle).
+middle2(X, [X]).
+
+/* loops indefinitely */
+middle3(X, [First|Xs]) :-
+	middle(X, Middle),
+	append(Middle, [_Last], Xs).
+middle3(X, [X]).
+
+:- nl, middle0(X, [4,3,2,1,22,33,44]), format('middle0 says: ~d', [X]).
+:- nl, middle2(Y, [4,3,2,1,22,33,44]), format('middle1 says: ~d', [Y]).
+:- nl, middle1(Z, [4,3,2,1,22,33,44]), format('middle2 says: ~d', [Z]).
+:- nl, middle3(W, [4,3,2,1,22,33,44]), format('middle3 says: ~d', [W]).
