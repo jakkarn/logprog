@@ -1,8 +1,8 @@
 /*
-    lab 2.2 - search strategies
+    lab 2.2 - search middle
 */
 
-/*  middle (X, Xs) */
+/*  strategies (X, Xs) */
 /* X is the middle element in the list Xs */
 middle0(X, [X]).
 middle0(X, [First|Xs]) :-
