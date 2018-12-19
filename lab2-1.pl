@@ -51,4 +51,3 @@ quicksort(Mixed, Sorted) :-
 :- append([1,6,1,7,3,7,5,72,8,3], [], L),
 	nl,selsort(L, SelSorted), write(SelSorted),
 	nl,quicksort(L, QuickSorted), write(QuickSorted).
-	
