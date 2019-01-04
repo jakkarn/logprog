@@ -1,0 +1,254 @@
+[Prolog built-ins, a draft overview, version of 19/09 2018]
+                       (Some examples run under SWI-Prolog)
+
+INPUT-OUTPUT
+
+write( T )    - write term  T
+nl            - write a newline character
+
+write/1  uses current operator declarations,
+write_canonical/1 does not (2+2 vs. +(2,2) )
+
+print( T )    - writing a term T, modified by user-declared portray/1
+
+read( T )     - read the next Prolog term, unify it with  T.
+
+These procedures work on the current output (current input) stream.
+By default the stream is the terminal.
+They may have an extra first argument for the stream to be used.
+
+Their powerful general versions:  read_term, write_term.
+
+Special built-ins for opening, closing, ... of streams.
+
+There is also character I/O and formatted output.
+................................................................
+
+CONTROL and meta-programming
+
+true    - succeed
+fail    - fail
+false   - fail
+
+call( Q )  - call  Q  (treat a term as a query), 
+abbreviated as  Q
+
+once( Q )  - call  Q  up to the first answer (no backtracking into Q)
+
+call_with_depth_limit( Q, Limit, Depth)
+    (only SWI-Prolog) 
+           - call  Q  with recursion no deeper than  Limit. 
+             If exceeded,  Depth  is  depth_limit_exceeded.
+
+    SICStus has  time_out( Q, TimeLimit, Time) in library(timeout)
+
+\+ Q     - succeed if  Q  fails, fail if  Q  succeeds
+           (pseudo-negation)
+
+Q1 ; Q2  -  alternative, defined as 
+        Goal1 ; _Goal2 :- Goal1.
+        _Goal1 ; Goal2 :- Goal2.
+
+Q_if -> Q_then ; Q_else  - if  Q_if  succeeds then execute  Q_then,
+                           if  Q_if  fails then execute  Q_else;
+                           Q_if  executed once
+
+There are ways to modify the selection rule, called "delays" or "coroutining"
+ (freeze/2, when/2, also "block" in SICStus).
+
+There is exception handling (catch/3 and throw/1)
+
+................................................................
+
+Finding all solutions
+
+findall(+Template, :Q, -Bag)  -  Bag is a list of the
+instances of  Template  made by the answers to  Q.
+
+Ex.    ?- findall( X, member( X, [1,2,3] ), L ).
+       L = [1, 2, 3].
+
+       ?- findall( f(X), member( X, [1,2,3] ), L ).
+       L = [f(1), f(2), f(3)].
+
+N.B.:
+    Notation, used in the documentation, for specifying
+    requirements on predicate arguments (rather obscure)
+
+      +   - input
+      ?   - output or input
+      -   - unbound
+      :   - callable (can be treated as a query)
+      @   - will not be further instantiated
+
+................................................................
+
+TERM COMPARISON, UNIFICATION
+
+
+X = Y   -  unify X,Y.  Defined as
+    =( X, X ).
+
+unify_with_occurs_check( X, Y )  - like =/2 but correct unification
+
+dif( X, Y ) - X,Y are different terms.  A special selection rule
+   used:  dif/2  selected only when its arguments are equal or
+   non unifiable.
+   Works as if defined by an infinite set of facts
+      { dif(t,u) | t,u are distinct ground terms }.
+
+A test:
+
+  ?- dif( X, Y ).
+  prolog:dif(X,Y) ? 
+% Neither success, nor failure.
+
+  ?- dif( a, b ).
+  true.
+  ?- dif( X, X ).
+  false.
+................
+
+Non-declarative COMPARISON of current instances of terms
+
+X \= Y   X,Y are not unifiable
+
+X == Y   -  X,Y bound to the same term
+X \== Y  -  X,Y bound to different terms
+
+compare( Order, X, Y ),
+@<, @=<, @>, @>=, ==
+     - comparing terms according to a standard order
+
+They are non-declarative, depend on the order of execution
+Ex.  ?- X \== Y, X=a, Y=a.            ?- X \= Y, X=a, Y=b.
+     X = Y, Y = a.		      false.		    
+				      		    
+     ?- X=a, Y=a, X \== Y.	      ?- X=a, Y=b, X \= Y.
+     false.			      X = a,		    
+				      Y = b.		    
+  Compare with query  dif(X,Y), X=a, Y=b,  independent of the order
+     ?- dif(X,Y), X=a, Y=b.
+     X = a,
+     Y = b.
+
+sort( List, Sorted )  - sorting List according to the standard order
+                        (duplicates are removed)
+
+There is also sorting w.r.t. keys,
+              sorting with repetitions
+              sorting using an order given by the user.
+................
+
+TERM PROPERTIES
+
+Term =.. List  - (called "univ")  List is the list of the functor of Term
+                                  and its arguments 
+E.g.:  f(a,b) =.. [f,a,b]
+
+
+functor( Term, Functor, Arity )  - the main symbol of Term
+                                   is Functor with Arity
+
+arg( N, Term, Argument ) -  Argument is the N'th argument of Term
+........
+
+Term properties (non-declarative)
+
+var( T )    - T is currently (bound to) a variable
+nonvar( T ) - T is currently a non-variable term
+ground( T ) - T is currently a term without variables
+
+                            integer( T ) float( T )
+                 atom( T )         number( T )           
+ compound( T )           atomic( T ) 
+................................................................
+
+Ex. (of using call/1 and term properties built-ins)
+
+% have_property( List, P ) - Each element X of List has property P
+%                            ( P(X) holds )
+
+have_property( [], P ).
+have_property( [X|Xs], P ) :-
+        Q =.. [P,X],
+        Q,
+        have_property( Xs, P ).
+
+    | ?- have_property( [1,2,3,a], atomic ).
+    yes
+
+................................................................
+
+ARITHMETIC   ( -> tutorials)
+
+Some ground terms are considered to be arithmetic expressions,
+like  3,  2+2, 3*(13 mod 5), sqrt(2)
+There are built-ins that evaluate and use their value.
+
+Ex.   ?- sqrt(3) < 18 mod 4.        ?-  X is 2.5*3**2.
+      true.                         X = 22.5.     
+
+................................................................
+
+DIRECTIVES  (appearing within programs)
+
+:- Query     - Executes  Query  while compiling.
+
+................................................................
+
+LOADING PROGRAMS
+
+
+[file]  or  consult( file )
+                 - load file to be interpreted
+                   e.g.  [lists]   ['lists.pl']  ['dir/lists.pl']
+compile( file )  - compile file and load the compiled code
+
+listing          - list the consulted clauses.
+listing( predicate )
+
+
+................................................................
+
+EXECUTION PROFILING (SWI-Prolog)
+
+time( Goal )     - Executes  Goal,  prints number of logical inferences,
+                   time, etc. 
+
+profile( Goal )  - Executes  Goal  like once/1, prints statistics for most
+                   used predicates. 
+................................................................
+
+EXECUTION PROFILING (SICStus)
+
+statistics/0, statistics/2  - various information about memory, 
+                              time, etc
+To get the CPU time and with and without garbage collection etc,
+since the last statistics, I use
+
+    | ?- statistics( total_runtime, [_,TRT] ),
+         statistics( runtime, [_,RT] ).
+
+Information about the number of procedure calls, etc:
+
+    ?- prolog_flag(profiling,_,on).     
+    ?- ...
+    ?- prolog_flag(profiling,_,off).     
+
+profile_data(Data) - Data is the accumulated profiling data
+print_profile      - ...
+
+profile_reset/1  resets the profiling data
+
+................................................................
+A syntactic detail:
+  A text in double quotes stands for a list of character codes!
+  Such notation is called strings.
+  (But _not_ in SWI-Prolog; there 'string' means something else.
+   Moreover "..." has another meaning in SWI-Prolog 7.)
+
+
+E.g.    write( "abc" ).             produces    [97,98,99]
+
+        format( '~s~n', ["abc"] ).  produces     abc

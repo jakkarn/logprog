@@ -1,8 +1,8 @@
 /*
-    lab 2.2 - search middle
+    lab 2.2 - search strategies
 */
 
-/*  strategies (X, Xs) */
+/* middle(X, Xs) */
 /* X is the middle element in the list Xs */
 middle0(X, [X]).
 middle0(X, [First|Xs]) :-
@@ -24,5 +24,5 @@ middle2(X, [X]).
 /* didn't finish nine elem list */
 middle3(X, [First|Xs]) :-
 	middle3(X, Middle),
-	append(Middle, [_Last], Xs).
+	append(Middle, [Last], Xs).
 middle3(X, [X]).
