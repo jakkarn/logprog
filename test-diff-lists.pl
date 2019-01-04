@@ -8,7 +8,11 @@
    example: call append_dl
 
         append_dl([a,b,c|_A]-_A, [1,2|_B]-_B, X-_Y).
-                        X     Y      Y     Z  
+                        X     Y      Y     Z
+
+   example: call append_dl (generate a real list)
+
+       append_dl([a,b,c|_A]-_A, [1,2|[]]-_B, X-_Y).
 */
 
 /* if X-Y and Y-Z are diff-lists then X-Z is the concatenation of the two */
